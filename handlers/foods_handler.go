@@ -25,6 +25,7 @@ func (h *FoodsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("TODO: error handling")
 	}
 
+	w.Header().Set("Content-Type", h.Encoder.ContentType())
 	w.WriteHeader(http.StatusOK)
 	w.Write(data)
 }

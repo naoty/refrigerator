@@ -10,3 +10,8 @@ type JSONEncoder struct {
 func (e JSONEncoder) Encode(v interface{}) ([]byte, error) {
 	return json.Marshal(v)
 }
+
+// ContentType returns Content-Type for JSON data.
+func (e JSONEncoder) ContentType() string {
+	return "application/json"
+}
