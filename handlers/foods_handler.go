@@ -1,15 +1,17 @@
 package handlers
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 
+	"github.com/naoty/refrigerator/handlers/encoders"
 	"github.com/naoty/refrigerator/models"
 )
 
 // FoodsHandler is a HTTP handler for foods.
 type FoodsHandler struct {
+	// Encoder is used to encode HTTP responses.
+	Encoder encoders.Encoder
 }
 
 func (h *FoodsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +20,7 @@ func (h *FoodsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		models.Food{Name: "Apple", Quantity: models.Quantity{Value: 1}},
 		models.Food{Name: "Orange", Quantity: models.Quantity{Value: 2}},
 	}
-	data, err := json.Marshal(foods)
+	data, err := h.Encoder.Encode(foods)
 	if err != nil {
 		fmt.Println("TODO: error handling")
 	}

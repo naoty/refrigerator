@@ -7,12 +7,13 @@ import (
 	"os"
 
 	"github.com/naoty/refrigerator/handlers"
+	"github.com/naoty/refrigerator/handlers/encoders"
 )
 
 func main() {
 	fmt.Println("Hello, world!")
 
-	http.Handle("/foods", &handlers.FoodsHandler{})
+	http.Handle("/foods", &handlers.FoodsHandler{Encoder: encoders.JSONEncoder{}})
 	err := http.ListenAndServe(":8080", nil)
 
 	if err != nil {
