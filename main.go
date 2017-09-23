@@ -6,10 +6,14 @@ import (
 	"os"
 
 	"github.com/naoty/refrigerator/handlers"
+	"github.com/naoty/refrigerator/handlers/encoders"
 )
 
 func main() {
-	handler := handlers.Log(&handlers.RoutesHandler{})
+	routesHandler := &handlers.RoutesHandler{}
+	routesHandler.GET("/foods", &handlers.FoodsHandler{Encoder: encoders.JSONEncoder{}})
+
+	handler := handlers.Log(routesHandler)
 	err := http.ListenAndServe(":8080", handler)
 
 	if err != nil {
