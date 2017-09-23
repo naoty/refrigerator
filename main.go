@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -11,9 +10,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Hello, world!")
-
-	http.Handle("/foods", &handlers.FoodsHandler{Encoder: encoders.JSONEncoder{}})
+	http.Handle("/foods", handlers.Log(&handlers.FoodsHandler{Encoder: encoders.JSONEncoder{}}))
 	err := http.ListenAndServe(":8080", nil)
 
 	if err != nil {
