@@ -7,9 +7,13 @@ import (
 
 	"github.com/naoty/refrigerator/handlers"
 	"github.com/naoty/refrigerator/handlers/encoders"
+	"github.com/naoty/refrigerator/infra"
 )
 
 func main() {
+	config := infra.DefaultConfig
+	log.Printf("user: %v, pass: %v", config.DBUser, config.DBPassword)
+
 	routesHandler := &handlers.RoutesHandler{}
 	routesHandler.GET("/foods", &handlers.FoodsHandler{Encoder: encoders.JSONEncoder{}})
 

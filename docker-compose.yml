@@ -2,6 +2,7 @@ version: "3"
 services:
   web:
     build: .
+    env_file: .env
   db:
     image: mysql:latest
     env_file: .env
