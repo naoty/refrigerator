@@ -1,19 +1,14 @@
-package infra
+package config
 
 import (
-	"log"
-
 	"github.com/kelseyhightower/envconfig"
 )
 
-// DefaultConfig is a configuration for this app set by default.
-var DefaultConfig Config
-
-func init() {
-	err := envconfig.Process("", &DefaultConfig)
-	if err != nil {
-		log.Fatal(err)
-	}
+// New creates a new Config.
+func New() (Config, error) {
+	var config Config
+	err := envconfig.Process("", &config)
+	return config, err
 }
 
 // Config is a configuration for this app.
