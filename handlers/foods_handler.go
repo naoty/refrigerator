@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/naoty/refrigerator/handlers/encoders"
-	"github.com/naoty/refrigerator/models"
+	"github.com/naoty/refrigerator/repositories"
 )
 
 // FoodsHandler is a HTTP handler for foods.
@@ -15,11 +15,8 @@ type FoodsHandler struct {
 }
 
 func (h *FoodsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	// TODO: Get data from database
-	foods := []models.Food{
-		models.Food{Name: "Apple", Quantity: models.Quantity{Value: 1}},
-		models.Food{Name: "Orange", Quantity: models.Quantity{Value: 2}},
-	}
+	repo := repositories.FoodsRepository{}
+	foods := repo.GetFoods()
 	data, err := h.Encoder.Encode(foods)
 	if err != nil {
 		fmt.Println("TODO: error handling")
